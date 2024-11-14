@@ -19,12 +19,32 @@ jQuery(document).ready(function ($) {
         { region: "Región Metropolitana de Santiago", comunas: ["Cerrillos", "Cerro Navia", "Conchalí", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Florida", "La Granja", "La Pintana", "La Reina", "Las Condes", "Lo Barnechea", "Lo Espejo", "Lo Prado", "Macul", "Maipú", "Ñuñoa", "Pedro Aguirre Cerda", "Peñalolén", "Providencia", "Pudahuel", "Quilicura", "Quinta Normal", "Recoleta", "Renca", "Santiago", "San Joaquín", "San Miguel", "San Ramón", "Vitacura", "Puente Alto", "Pirque", "San José de Maipo", "Colina", "Lampa", "Tiltil", "San Bernardo", "Buin", "Calera de Tango", "Paine", "Melipilla", "Alhué", "Curacaví", "María Pinto", "San Pedro", "Talagante", "El Monte", "Isla de Maipo", "Padre Hurtado", "Peñaflor"] }
     ];    
 
-    // Flatten the array to get a list of all comunas for autocomplete
-    const allComunas = comunasChile.flatMap(region => region.comunas);
+    const comunaToRegionMap = {};
+    comunasChile.forEach(entry => {
+        entry.comunas.forEach(comuna => {
+            comunaToRegionMap[comuna] = entry.region;
+        });
+    });
 
-    // Initialize autocomplete on the Comuna fields
+    // Autocomplete for Comuna with Region update
     $('#billing_comuna, #shipping_comuna').autocomplete({
-        source: allComunas,
-        minLength: 1 // Minimum characters before suggestions appear
+        source: Object.keys(comunaToRegionMap),
+        minLength: 1,
+        select: function (event, ui) {
+            const selectedComuna = ui.item.value;
+            const associatedRegion = comunaToRegionMap[selectedComuna];
+
+            if (associatedRegion) {
+                const regionSelect = $(this).attr('id') === 'billing_comuna' ? '#billing_state' : '#shipping_state';
+
+                // Update the region dropdown value
+                $(regionSelect).val($(`${regionSelect} option`).filter(function () {
+                    return $(this).text() === associatedRegion;
+                }).val()).trigger('change');
+
+                // Trigger WooCommerce to recalculate shipping
+                $('body').trigger('update_checkout');
+            }
+        }
     });
 });
