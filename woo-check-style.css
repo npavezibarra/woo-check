@@ -25,3 +25,78 @@
 p#billing_country_field {
     display: none;
 }
+
+#shipping_country_field {
+    display: none;
+}
+
+.woocommerce-shipping-fields__field-wrapper > p > label {
+    font-size: 12px; !important;
+    margin-bottom: 0px;
+}
+
+label.woocommerce-form__label.woocommerce-form__label-for-checkbox.checkbox {
+    font-size: 15px;
+    border: 1px solid #c8c8c8;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #efefef;
+}
+
+table.shop_table.woocommerce-checkout-review-order-table {
+    font-size: 13px;
+    background: white;
+    border: 2px solid #c9c9c9;
+}
+
+#add_payment_method #payment, .woocommerce-cart #payment, .woocommerce-checkout #payment {
+    background: #ebebeb;
+    border-radius: 5px;
+}
+
+#add_payment_method #payment div.payment_box, .woocommerce-cart #payment div.payment_box, .woocommerce-checkout #payment div.payment_box {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1em;
+    margin: 1em 0;
+    font-size: .92em;
+    border-radius: 2px;
+    line-height: 1.5;
+    background-color: #fafafa;
+    color: #515151;
+}
+
+#add_payment_method #payment div.payment_box::before, .woocommerce-cart #payment div.payment_box::before, .woocommerce-checkout #payment div.payment_box::before {
+    content: "";
+    display: block;
+    border: 1em solid #fafafa;
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    position: absolute;
+    top: -.75em;
+    left: 0;
+    margin: -1em 0 0 2em;
+}
+
+.woocommerce-privacy-policy-text {
+    font-size: 14px;
+}
+
+#add_payment_method #payment div.payment_box, .woocommerce-cart #payment div.payment_box, .woocommerce-checkout #payment div.payment_box {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1em;
+    margin: 1em 0;
+    font-size: 12px;
+    border-radius: 2px;
+    line-height: 1.5;
+    background-color: #fafafa;
+    color: #515151;
+}
+
+.woocommerce-additional-fields {
+    display: none;
+}
