@@ -100,3 +100,26 @@ table.shop_table.woocommerce-checkout-review-order-table {
 .woocommerce-additional-fields {
     display: none;
 }
+
+
+/* Customize jQuery UI Autocomplete dropdown */
+.ui-autocomplete {
+    background-color: white; /* Set the background to white */
+    border: 1px solid #ccc;
+    max-height: auto; /* Max height for scrolling */
+    max-width: 350px; /* Set max width
+    overflow-y: auto; /* Add scrolling if there are many items */
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    z-index: 1000; /* Ensure the dropdown appears above other elements */
+}
+
+.ui-autocomplete li {
+    padding: 8px 12px; /* Add padding for clickable area */
+    cursor: pointer;
+}
+
+.ui-autocomplete li:hover {
+    background-color: #f0f0f0; /* Add a light background on hover */
+}
