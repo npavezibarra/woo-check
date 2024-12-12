@@ -88,6 +88,15 @@ function woo_check_override_myaccount_templates($template, $template_name, $temp
 add_action('wp_enqueue_scripts', 'woo_check_enqueue_assets');
 
 function woo_check_enqueue_assets() {
+
+    wp_enqueue_script(
+        'woo-check-comunas-chile',
+        plugin_dir_url(__FILE__) . 'comunas-chile.js',
+        array(), // No dependencies
+        '1.0',
+        true
+    );
+    
     // Enqueue on the Order Received page
     if (is_wc_endpoint_url('order-received')) {
         wp_enqueue_style(
@@ -139,7 +148,7 @@ function customize_checkout_fields_order($fields) {
             'placeholder' => 'Enter comuna',
             'required'    => true,
             'class'       => array('form-row-wide'),
-            'priority'    => 40,
+            'priority'    => 60, // Changed from 40
         ),
         'billing_state'      => $fields['billing']['billing_state'],
         'billing_phone'      => $fields['billing']['billing_phone'],
@@ -147,26 +156,27 @@ function customize_checkout_fields_order($fields) {
     );
 
     // Reorganizar campos de envío
-    $fields['shipping'] = array(
-        'shipping_first_name' => $fields['shipping']['shipping_first_name'],
-        'shipping_last_name'  => $fields['shipping']['shipping_last_name'],
-        'shipping_address_1'  => $fields['shipping']['shipping_address_1'],
-        'shipping_address_2'  => $fields['shipping']['shipping_address_2'],
-        'shipping_comuna'     => array(
-            'label'       => 'Comuna',
-            'placeholder' => 'Enter comuna',
-            'required'    => true,
-            'class'       => array('form-row-wide'),
-            'priority'    => 40,
-        ),
-        'shipping_state'      => $fields['shipping']['shipping_state'],
-        'shipping_phone'      => array(
-            'type'     => 'tel',
-            'label'    => __('Teléfono de quien recibe', 'woocommerce'),
-            'required' => false,
-            'class'    => array('form-row-wide'),
-        ),
-    );
+$fields['shipping'] = array(
+    'shipping_first_name' => $fields['shipping']['shipping_first_name'],
+    'shipping_last_name'  => $fields['shipping']['shipping_last_name'],
+    'shipping_address_1'  => $fields['shipping']['shipping_address_1'],
+    'shipping_address_2'  => $fields['shipping']['shipping_address_2'],
+    'shipping_comuna'     => array(
+        'label'       => 'Comuna',
+        'placeholder' => 'Enter comuna',
+        'required'    => true,
+        'class'       => array('form-row-wide'),
+        'priority'    => 60, // Adjusted from 40
+    ),
+    'shipping_state'      => $fields['shipping']['shipping_state'],
+    'shipping_phone'      => array(
+        'type'       => 'tel',
+        'label'      => __('Teléfono de quien recibe', 'woocommerce'),
+        'required'   => false,
+        'class'      => array('form-row-wide'),
+        'priority'   => 70, // Added priority to control placement
+    ),
+);
 
     return $fields;
 }
@@ -227,33 +237,23 @@ function debug_comuna_meta_after_save($order_id, $posted) {
 
 /* EDIT SHIPPING ADDRESS MY ACCOUNT */
 
-/* EDIT SHIPPING ADDRESS MY ACCOUNT */
-
 // Add or modify the Comuna field in the Edit Address form
 add_filter('woocommerce_default_address_fields', 'add_comuna_field_to_edit_address');
 function add_comuna_field_to_edit_address($fields) {
-    // Add 'comuna' field
+    // Add 'comuna' field with adjusted priority
     $fields['comuna'] = array(
         'label'       => __('Comuna', 'woocommerce'),
         'placeholder' => __('Enter comuna', 'woocommerce'),
         'required'    => true,
         'class'       => array('form-row-wide'),
-        'priority'    => 40,
+        'priority'    => 60, // Adjust priority to place it below address_2
     );
 
-    // Adjust field priorities
-    $fields['address_1']['priority'] = 50;
-    $fields['address_2']['priority'] = 60;
-    $fields['state']['priority'] = 70; // Region field
-
-    // Add phone field after Region
-    $fields['phone'] = array(
-        'label'       => __('Phone Number', 'woocommerce'),
-        'placeholder' => __('Enter your phone number', 'woocommerce'),
-        'required'    => true,
-        'class'       => array('form-row-wide'),
-        'priority'    => 80,
-    );
+    // Adjust other field priorities
+    $fields['address_1']['priority'] = 50; // Street Address 1
+    $fields['address_2']['priority'] = 55; // Street Address 2 (optional)
+    $fields['state']['priority'] = 70;     // Region/State field
+    $fields['phone']['priority'] = 80;    // Phone field
 
     // Remove unwanted fields
     unset($fields['city']);
@@ -262,6 +262,7 @@ function add_comuna_field_to_edit_address($fields) {
 
     return $fields;
 }
+
 
 // Save Comuna and Phone values when the Edit Address form is submitted
 add_action('woocommerce_customer_save_address', 'save_comuna_and_phone_fields_in_edit_address', 10, 2);
@@ -277,6 +278,5 @@ function save_comuna_and_phone_fields_in_edit_address($user_id, $load_address) {
     }
 }
 
-
-
+/* ENQUEUEING COMUNAS */
 
