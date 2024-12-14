@@ -26,7 +26,7 @@ $order = wc_get_order($order_id);
 <h3>
     <?php
     $customer_first_name = $order ? $order->get_billing_first_name() : '';
-    echo 'Gracias por tu compra' . (!empty($customer_first_name) ? ', ' . esc_html($customer_first_name) : '') . '!';
+    echo 'Gracias por tu compra' . (!empty($customer_first_name) ? ' ' . esc_html($customer_first_name) : '') . '!';
     ?>
 </h3>
 

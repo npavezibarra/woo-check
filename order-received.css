@@ -7,7 +7,6 @@
 }
 
 .woocommerce-order-received .woocommerce-column--billing-address {
-    background: white;
     text-align: center;
 }
 
@@ -22,7 +21,6 @@
 }
 
 .woocommerce-order-received .woocommerce-column--shipping-address {
-    background: white;
     text-align: center;
     border-radius: 6px;
 }
@@ -60,8 +58,8 @@
 }
 
 .product-image img {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -84,14 +82,16 @@
 }
 
 ul.order-products {
-    max-width: 400px;
     margin: auto;
+    margin-top: 50px;
+    border: 1px solid black;
+    padding: 20px;
 }
 
 div#order-information {
     max-width: 800px;
     margin: auto;
-    background: white;
+    background: #f9f9f9;
     padding: 20px 0px;
     border-radius: 6px;
 }
@@ -102,15 +102,16 @@ div#order-information {
 }
 
 .woocommerce-order-received {
-    background: black;
+    background: #f9f9f9;
 }
 
 #info-clientes > h3 {
-    color: white;
+    color: rgb(0, 0, 0);
 }
 
 .order-received-page > h3 {
-    color: white;
+    color: black;
+    margin-bottom: 0px;
 }
 
 .order-received-page {
@@ -178,7 +179,31 @@ ul.order-products {
 
 p.titulo-seccion {
     text-transform: uppercase;
+    color: white;
+    background: black;
     font-weight: 600;
     font-size: 13px;
-    padding: 31px;
+    max-width: 250px;
+    margin: auto;
+}
+
+.woocommerce-order-received .woocommerce-columns {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative; /* To position the dividing line */
+}
+
+.woocommerce-order-received .woocommerce-columns::before {
+    content: "";
+    position: absolute;
+    width: 1px; /* Thickness of the line */
+    height: 100%; /* Full height of the container */
+    background-color: black; /* Color of the line */
+    left: 50%; /* Position the line in the middle */
+    transform: translateX(-50%); /* Center the line exactly */
+}
+
+.woocommerce-columns.woocommerce-columns--2.woocommerce-columns--addresses.col2-set.addresses {
+    border: 1px solid black;
 }

@@ -123,3 +123,21 @@ table.shop_table.woocommerce-checkout-review-order-table {
 .ui-autocomplete li:hover {
     background-color: #f0f0f0; /* Add a light background on hover */
 }
+
+
+.woocommerce-Address-title h2 {
+    text-align: left !important;
+}
+
+.woocommerce-Address-title a {
+    float: left !important;
+    font-size: 11px;
+    padding: 3px 5px;
+    border-radius: 3px;
+    border: 1px solid black;
+}
+
+.addresses address {
+    font-style: normal !important;
+    font-size: 14px !important;
+}

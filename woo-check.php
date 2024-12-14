@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WooCommerce Checkout Customizer (woo-check)
+Plugin Name: WooCheck
 Description: A plugin to customize the WooCommerce checkout page with an autocomplete field for Comuna.
 Version: 1.0
 Author: Your Name
@@ -96,7 +96,7 @@ function woo_check_enqueue_assets() {
         '1.0',
         true
     );
-    
+
     // Enqueue on the Order Received page
     if (is_wc_endpoint_url('order-received')) {
         wp_enqueue_style(
